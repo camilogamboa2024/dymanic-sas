@@ -13,8 +13,8 @@ DB_PORT=5432
 """
 
 from pathlib import Path
-import environ
 import os
+import environ
 
 # ───────────────────────────────────────────
 # Rutas base
@@ -28,8 +28,9 @@ env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 DEBUG = env("DEBUG")
-SECRET_KEY = env("SECRET_KEY")
-ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(",")
+# Si no existe SECRET_KEY en entorno, usar este fallback (útil en CI/local)
+SECRET_KEY = env("SECRET_KEY", default="django-insecure-fallback-key")
+ALLOWED_HOSTS = env("ALLOWED_HOSTS", default="").split(",")
 
 # ───────────────────────────────────────────
 # Apps
@@ -43,9 +44,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Terceros
-    "django_htmx",          # opcional
+    "django_htmx",
     # Propias
     "inventario",
+    "ventas",
+    "reportes",
 ]
 
 # ───────────────────────────────────────────
@@ -53,7 +56,7 @@ INSTALLED_APPS = [
 # ───────────────────────────────────────────
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",      # para servir estáticos
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -91,11 +94,11 @@ WSGI_APPLICATION = "dymanic.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("DB_NAME"),
-        "USER": env("DB_USER"),
-        "PASSWORD": env("DB_PASSWORD"),
-        "HOST": env("DB_HOST"),
-        "PORT": env("DB_PORT"),
+        "NAME": env("DB_NAME", default="dymanic"),
+        "USER": env("DB_USER", default="dymanic"),
+        "PASSWORD": env("DB_PASSWORD", default=""),
+        "HOST": env("DB_HOST", default="localhost"),
+        "PORT": env("DB_PORT", default="5432"),
     }
 }
 
