@@ -1,7 +1,7 @@
-
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 
 from .models import Producto, MovimientoStock
 from .forms import ProductoForm, MovimientoForm
@@ -25,8 +25,12 @@ class ProductoCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("inventario:productos")
 
     def form_valid(self, form):
-        form.instance = form.save(usuario=self.request.user)
-        return super().form_valid(form)
+        """
+        Guardamos el producto una única vez y redirigimos
+        sin invocar el segundo form.save() de CreateView.
+        """
+        self.object = form.save(usuario=self.request.user)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ProductoDetail(LoginRequiredMixin, DetailView):
@@ -46,5 +50,5 @@ class MovimientoCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("inventario:productos")
 
     def form_valid(self, form):
-        form.instance = form.save(usuario=self.request.user)
-        return super().form_valid(form)
+        self.object = form.save(usuario=self.request.user)
+        return HttpResponseRedirect(self.get_success_url())
