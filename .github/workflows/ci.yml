@@ -4,9 +4,11 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
 
 jobs:
   test:
@@ -28,7 +30,7 @@ jobs:
           --health-retries 5
 
     env:
-      # Inyecta aquí el SECRET_KEY configurado como Secret en GitHub
+      # Inyectamos la SECRET_KEY que definiste en Settings → Secrets
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
       # URL de la base de datos de pruebas
       DATABASE_URL: postgres://django:django@localhost:5432/dynamic_sas_test
