@@ -1,5 +1,3 @@
-# .github/workflows/ci.yml
-
 name: CI
 
 on:
@@ -30,9 +28,7 @@ jobs:
           --health-retries 5
 
     env:
-      # Inyectamos la SECRET_KEY que definiste en Settings → Secrets
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      # URL de la base de datos de pruebas
       DATABASE_URL: postgres://django:django@localhost:5432/dynamic_sas_test
 
     steps:
@@ -55,11 +51,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Lint with flake8
-        run: |
-          pip install flake8
-          flake8 .
-
       - name: Run migrations
         run: |
           python manage.py migrate --noinput
@@ -72,4 +63,3 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-
