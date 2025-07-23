@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Dymanic SAS</title>
+</head>
+<body>
+  {% if user.is_authenticated %}
+    <p>Hola {{ user.username }} – <a href="{% url 'logout' %}?next=/accounts/login/">Salir</a></p>
+  {% else %}
+    <p><a href="{% url 'login' %}">Iniciar sesión</a></p>
+  {% endif %}
+
+  {% block content %}{% endblock %}
+</body>
+</html>
