@@ -1,33 +1,32 @@
-# Dynamic SAS
-![CI](https://github.com/camilogamboa2024/dymanic-sas/actions/workflows/ci.yml/badge.svg)
+#  Backend Proyecto Dymanic SAS
 
-Dynamic SAS es una aplicación web desarrollada en Django para facilitar la gestión integral de un pequeño o mediano negocio. Sus principales características son:
+Este es el backend del sistema de inventario y ventas desarrollado con Django.
 
-Inventario
-‣ CRUD de productos y categorías
-‣ Registro de movimientos de stock (entradas, salidas, ajustes)
-‣ Alertas de stock bajo y gestión de niveles mínimos
+##  Requisitos
 
-Ventas
-‣ Administración de clientes y facturas
-‣ Líneas de venta con validación de stock
-‣ Resumen y detalle de ventas
+- Python 3.11
+- PostgreSQL (o SQLite en entorno local)
+- Django 4.2.23
 
-Reportes
-‣ Ranking de top‐productos por volumen de ventas en un rango de fechas
-‣ Cálculo de rotación de inventario (días de cobertura)
-‣ Formularios de filtro por fecha y tablas exportables
+---
 
-Autenticación y permisos
-‣ Inicio/cierre de sesión
-‣ Control de acceso por grupos y permisos a vistas y acciones
+## instalacion local
 
-Calidad y despliegue
-‣ Tests automatizados con pytest y cobertura ≥ 90%
-‣ CI configurada con GitHub Actions (tests, migraciones, cobertura)
-‣ Preparada para incorporación de CD (Heroku, AWS, etc.)
+1. Clona el repositorio:
 
-Tecnologías clave:
-Django, PostgreSQL, pytest, GitHub Actions y, opcionalmente, Tailwind o Bootstrap en el front-end.
+```bash
+git clone https://github.com/camilogamboa2024/dymanic-sas.git
+cd dymanic-sas
 
-Con esta herramienta podrás llevar un control fiable de tu stock, facturación y análisis de ventas, todo en un único panel web.
+
+Estructura del proyecto
+inventario/ – Gestión de productos.
+
+ventas/ – Gestión de ventas, facturas y resúmenes.
+
+reportes/ – Visualización de productos más vendidos, rotación, etc.
+
+templates/ – HTMLs básicos para probar el funcionamiento.
+
+services.py – Lógica de negocio separada para mayor mantenibilidad.
+
