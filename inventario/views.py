@@ -8,6 +8,8 @@ from .forms import ProductoForm, MovimientoForm
 from .services import get_productos_bajo_stock
 
 
+
+
 class ProductoList(LoginRequiredMixin, ListView):
     model = Producto
     ordering = ["nombre"]

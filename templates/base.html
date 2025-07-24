@@ -2,9 +2,18 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <title>Dymanic SAS</title>
+  <title>Dynamic SAS</title>
 </head>
 <body>
+  <nav>
+    <ul>
+      <li><a href="{% url 'inventario:productos' %}">Inventario</a></li>
+      <li><a href="{% url 'ventas:resumen' %}">Ventas</a></li>
+      <!-- Ajusta aquí según el name real -->
+      <li><a href="{% url 'reportes:top_productos' %}">Reportes</a></li>
+    </ul>
+  </nav>
+
   {% if user.is_authenticated %}
     <p>Hola {{ user.username }} – <a href="{% url 'logout' %}?next=/accounts/login/">Salir</a></p>
   {% else %}
